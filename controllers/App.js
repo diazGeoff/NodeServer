@@ -2,6 +2,6 @@
 module.exports = {
 	"/": {
 		"method": "GET",
-		"controller": Static( "home" , "index" , "Home Page" )
+		"controller": Static( "layout" , "index" , "Home Page" )
 	}
 };

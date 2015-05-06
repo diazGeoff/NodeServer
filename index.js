@@ -3,6 +3,7 @@ var parser = require( "body-parser" );
 var layouts = require( "express-ejs-layouts" );
 var router = require( "./config/route" );
 var database = require( "./config/database" );
+var viewLayout = require( "./config/view" );
 var app = express( );
 
 var cors = function cors ( request , response , next ) {	
@@ -15,15 +16,17 @@ var cors = function cors ( request , response , next ) {
 
 app.set( "view engine" , ".ejs" );
 app.set( "views" , __dirname + "/views" );
+app.set( "layout" , "layouts/" + viewLayout.default );
 
 app.use( parser.json( ) );
 app.use( parser.urlencoded( { "extended": false } ) );
-app.use( function ( request , response , next ) {
-	response.locals.layouts = "layouts/";
-	next( );
-} );
 app.use( cors );
 app.use( layouts );
+
+app.use( function ( request , response , next ) {	
+	response.locals.title = "Node Server";	
+	next( );
+} );
 
 router.controllers( __dirname , app );
 router.static( __dirname , "library" , app );
