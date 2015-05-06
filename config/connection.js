@@ -1,11 +1,18 @@
-var adapter = require( "sails-mysql" );
+var diskAdapter = require( "sails-disk" );
+var mysqlAdapter = require( "sails-mysql" );
+
 
 module.exports = {
     "config": {
-        "adapters": {        
-            "mysql": adapter
+        "adapters": {
+            "disk": diskAdapter,
+            "mysql": mysqlAdapter
         },
         "connections": {
+            "diskConnect": {
+                "adapter": "disk"
+            },
+
             "mysqlConnect": {
                 "adapter": "mysql",
                 "host": "localhost",
@@ -15,5 +22,5 @@ module.exports = {
             }
         }
     },
-    "default": "mysqlConnect"
+    "default": "diskConnect"
 };
