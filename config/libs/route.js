@@ -22,5 +22,15 @@ module.exports = {
 				response.write( fs.readFileSync( directory + "/assets/" + folder + "/" + request.params.name ) );
 				response.end( );
 			} );
+	},
+	"services": function setServices ( directory ) {
+		fs.readdir( directory + "/services" , 
+			function ( err , services ) {
+				services.splice( services.indexOf( ".readme" ) , 1 );
+
+				services.forEach( function ( service ) {
+					global[ service.split( "." )[0] ] = require( directory + "/services/" + service );
+				} );
+			} );
 	}
 };

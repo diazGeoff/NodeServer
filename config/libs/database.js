@@ -1,7 +1,7 @@
 var fs = require( "fs" );
 var Waterline = require( "waterline" );
 var orm = new Waterline( );
-var connection = require( "./connection" );
+var connection = require( "../connection" );
 
 var CreateModel = function CreateModel ( name , schema ) {
 	schema.identity = name.toLowerCase( );
