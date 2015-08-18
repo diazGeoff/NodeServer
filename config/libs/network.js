@@ -3,22 +3,24 @@ var cors = require( "../cors" );
 module.exports = {
 	"setAllowedOrigins": function setAllowedOrigins ( ) {
 		return function ( request , response , next ) {
-			cors.allow.hosts.forEach( function ( host ) {
-				if ( request.get( "host" ) == host )
-					next( );
-			} );
+			var host = cors.allow.hosts;
+			for ( var i = 0 ; i < host.length ; i ++ ) {
+				if ( request.get( "host" ) == host[i] )
+					return next( );
+			}
 
-			response.end( "Host not allowed" );
+			return response.end( "Host not allowed" );
 		}
 	},
 	"setBlockedOrigins": function setBlockedOrigins ( ) {
 		return function ( request , response , next ) {
-			cors.block.hosts.forEach( function ( host ) {
-				if ( request.get( "host" ) == host )
-					response.end( "Host is blocked" );
-			} );
+			var host = cors.block.hosts;
+			for ( var i = 0 ; i < host.length ; i ++ ) {
+				if ( request.get( "host" ) == host[i] )
+					return response.end( "Host is blocked" );
+			}
 
-			next( );
+			return next( );
 		}
 	}
 };
